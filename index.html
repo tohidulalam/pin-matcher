@@ -12,37 +12,37 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="pin-generator half-width">
-                    <input class="form-control" type="text">
-                    <button class="generate-btn">Generate Pin</button>
+                    <input class="form-control" id='random-pin' type="text" value="">
+                    <button class="generate-btn" onclick="generatePin()">Generate Pin</button>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="input-section half-width">
-                    <input class="form-control" type="text">
+                    <input class="form-control" id="match-pin" type="text" value= >
                     <div class="numbers">
                         <div class="calc-body">
                             <div class="calc-button-row">
-                              <div class="button">7</div>
-                              <div class="button">8</div>
-                              <div class="button">9</div>
+                              <div class="button number" onclick="number(7)" >7</div>
+                              <div class="button number" onclick="number(8)" >8</div>
+                              <div class="button number" onclick="number(9)" >9</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">4</div>
-                              <div class="button">5</div>
-                              <div class="button">6</div>
+                              <div class="button number" onclick="number(4)" >4</div>
+                              <div class="button number" onclick="number(5)" >5</div>
+                              <div class="button number" onclick="number(6)" >6</div>
                             </div>
                             <div class="calc-button-row">
-                              <div class="button">1</div>
-                              <div class="button">2</div>
-                              <div class="button">3</div>
+                              <div class="button number" onclick="number(1)" >1</div>
+                              <div class="button number" onclick="number(2)" >2</div>
+                              <div class="button number" onclick="number(3)" >3</div>
                             </div>
                             <div class="calc-button-row">
                                 <div class="button"><</div>
-                                <div class="button">0</div>
-                                <div class="button">C</div>
+                                <div class="button number" onclick="number(0)" >0</div>
+                                <div class="button" onclick="clr()">C</div>
                             </div>
                             <div>
-                                <button type="submit" class="submit-btn">Submit</button>
+                                <button type="submit" class="submit-btn" onclick="submit()">Submit</button>
                                 <p class="action-left">3 try left</p>
                             </div>
                     </div>
@@ -50,9 +50,45 @@
             </div>
         </div>
         <div class="notify-section">
-            <p class="notify">❌ Pin Didn't Match, Please try again</p>
-            <p class="notify">✅ Pin Matched... Secret door is opening for you</p>
+            <p class="notify" id="notify-not-match">❌ Pin Didn't Match, Please try again</p>
+            <p class="notify" id="notify-match">✅ Pin Matched... Secret door is opening for you</p>
         </div>
     </div>
+
+    <script>
+        //generate pin part 
+        function generatePin(){
+            let btn = document.getElementsByClassName('generate-btn');
+            let pin = Math.floor(Math.random() * (9999- 1000 + 1)) + 1000;
+            btn.value =parseInt(pin);
+            document.getElementById('random-pin').value = btn.value;
+
+              }
+
+
+        function number(val){
+            document.getElementById("match-pin").value+=val;
+        }
+
+        function submit(){
+            let btn =  document.getElementById('random-pin').value;
+            console.log(btn);
+            let num = document.getElementById("match-pin").value;
+            console.log(num);
+           if(parseInt(btn)==parseInt(num)){
+                document.getElementById('notify-match').style.display="block";
+            }
+            else{
+                document.getElementById('notify-not-match').style.display="block";
+            }
+            
+        }
+
+        function clr(){
+            document.getElementById("match-pin").value = "";
+            document.getElementById('random-pin').value ="";
+        }
+
+    </script>
 </body>
 </html>
